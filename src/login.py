@@ -10,7 +10,7 @@ def main_screen():
   screen.title("MONITROS")
   screen.geometry("1920x1080")
   screen.config(bg = "white")
-  screen.bg_img = ImageTk.PhotoImage(file="Images/login.jpg")
+  screen.bg_img = ImageTk.PhotoImage(file="img/login.jpg")
   background = Label(screen, image = screen.bg_img).place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
   global username_verify
@@ -47,7 +47,7 @@ def register():
   screen1.title("MONITROS")
   screen1.geometry("1920x1080")
   screen1.config(bg = "white")
-  screen1.bg_img = ImageTk.PhotoImage(file="Images/register.jpg")
+  screen1.bg_img = ImageTk.PhotoImage(file="img/register.jpg")
   background = Label(screen1, image = screen1.bg_img).place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
   global username
