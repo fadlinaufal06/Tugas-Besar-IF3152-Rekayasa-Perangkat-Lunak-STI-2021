@@ -1,6 +1,6 @@
 -- MariaDB dump 10.18  Distrib 10.5.8-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: peralatan
+-- Host: localhost    Database: monitros
 -- ------------------------------------------------------
 -- Server version	10.5.8-MariaDB
 
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-20 17:41:33
+-- Dump completed on 2021-11-20 23:36:45

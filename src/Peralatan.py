@@ -81,7 +81,7 @@ def KondisiPeralatan():
             password="",
             host="localhost",
             port=3306,
-            database="peralatan"
+            database="monitros"
         )
     except mariadb.Error as e:
         print(f"Error connecting to MariaDB Platform: {e}")
@@ -173,7 +173,7 @@ def EditPeralatan():
             password="",
             host="localhost",
             port=3306,
-            database="peralatan"
+            database="monitros"
         )
         # Get Cursor
         cur = conn.cursor()
@@ -189,7 +189,7 @@ def EditPeralatan():
             password="",
             host="localhost",
             port=3306,
-            database="peralatan"
+            database="monitros"
         )
         # Get Cursor
         cur = conn.cursor()
@@ -206,7 +206,7 @@ def EditPeralatan():
             password="",
             host="localhost",
             port=3306,
-            database="peralatan"
+            database="monitros"
         )
         # Get Cursor
         cur = conn.cursor()
