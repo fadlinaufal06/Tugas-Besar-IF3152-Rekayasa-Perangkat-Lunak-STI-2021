@@ -18,14 +18,14 @@ def KondisiPeralatan():
     root.config(bg='white')
     
     # Tampilan biru di atas
-    Biru = Image.open(".\img\lightblue.png")
+    Biru = Image.open("img\lightblue.png")
     Biru.load()
     Biru = Biru.resize((500,300), Image.ANTIALIAS)
     BiruPI = ImageTk.PhotoImage(Biru)
     Background_biru = Label(root, image=BiruPI, bg='deepskyblue').place(x=0,y=0,width=1500,height=150)
 
     # Tampilan atas MONITROS)
-    FotoMonitros = Image.open(".\img\logo monitros.png")
+    FotoMonitros = Image.open("img\logo monitros.png")
     FotoMonitros.load()
     FotoMonitros = FotoMonitros.resize((500,300), Image.ANTIALIAS)
     FotoMonitrosPI = ImageTk.PhotoImage(FotoMonitros)
@@ -35,7 +35,7 @@ def KondisiPeralatan():
     DaftarlabelTitle = Label(root, text='DAFTAR PERALATAN', font=('helvetica',40),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
 
     # Tampilan gambar profile 
-    Profile = Image.open('.\img\Profile.png')
+    Profile = Image.open('img\Profile.png')
     Profile.load()
     Profile = Profile.resize((160,100), Image.ANTIALIAS)
     ProfilePI = ImageTk.PhotoImage(Profile)
@@ -47,7 +47,7 @@ def KondisiPeralatan():
         root.destroy()
 
     # Tombol Edit peralatan
-    EditBut = Image.open('.\img\EditPeralatan.png')
+    EditBut = Image.open('img\EditPeralatan.png')
     EditBut.load()
     EditBut = EditBut.resize((220,70),Image.ANTIALIAS)
     EditButPI = ImageTk.PhotoImage(EditBut)
@@ -113,13 +113,13 @@ def EditPeralatan():
     root2.config(bg='white')
 
     # Tampilan biru di atas
-    Biru = Image.open(".\img\lightblue.png")
+    Biru = Image.open("img\lightblue.png")
     Biru.load()
     Biru = Biru.resize((500,300), Image.ANTIALIAS)
     BiruPI = ImageTk.PhotoImage(Biru)
     Background_biru = Label(root2, image=BiruPI, bg='deepskyblue').place(x=0,y=0,width=1500,height=150)
     # Tampilan atas MONITROS)
-    FotoMonitros = Image.open(".\img\logo monitros.png")
+    FotoMonitros = Image.open("img\logo monitros.png")
     FotoMonitros.load()
     FotoMonitros = FotoMonitros.resize((500,300), Image.ANTIALIAS)
     FotoMonitrosPI = ImageTk.PhotoImage(FotoMonitros)
@@ -129,7 +129,7 @@ def EditPeralatan():
     DaftarlabelTitle = Label(root2, text='EDIT PERALATAN', font=('helvetica',40),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
 
     # Tampilan gambar profile 
-    Profile = Image.open('.\img\Profile.png')
+    Profile = Image.open('img\Profile.png')
     Profile.load()
     Profile = Profile.resize((160,100), Image.ANTIALIAS)
     ProfilePI = ImageTk.PhotoImage(Profile)
