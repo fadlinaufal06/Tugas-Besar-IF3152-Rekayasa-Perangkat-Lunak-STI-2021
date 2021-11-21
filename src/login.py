@@ -31,7 +31,7 @@ def home():
   Username_login.place(x = 850, y = 250, width = 300, height = 30)
 
   #field Passwords
-  Label(screen, text = "Passwords", font = ("Helvetica", 15, "bold"), bg="white").place(x = 850, y = 320)
+  Label(screen, text = "Password", font = ("Helvetica", 15, "bold"), bg="white").place(x = 850, y = 320)
   Passwords_login = Entry(screen, textvariable = Passwords_verify, font=("Helvetica", 15, "bold"), bg = "light grey", fg = "black")
   Passwords_login.place(x = 850, y = 350, width = 300, height = 30)
 
@@ -80,7 +80,7 @@ def register():
   Username_register.place(x = 50, y = 230, width = 300, height = 30)
 
   #field Passwords
-  Label(screen1, text = "Passwords", font = ("Helvetica", 15, "bold"), bg="white").place(x = 450, y = 400)
+  Label(screen1, text = "Password", font = ("Helvetica", 15, "bold"), bg="white").place(x = 450, y = 400)
   Passwords_register = Entry(screen1, textvariable = Passwords, font=("Helvetica", 15, "bold"), bg = "light grey", fg = "black")
   Passwords_register.place(x = 450, y = 430, width = 300, height = 30)
 
@@ -127,9 +127,23 @@ def register_user():
   Query = "INSERT INTO data_user VALUES (%s,%s,%s,%d,%s,%s)"
   data = (Username.get(),Passwords.get(),Nama_lengkap.get(),Nomor_HP.get(),Alamat.get(),Role.get())
   cur.execute(Query, data)
-  conn.commit()
-
-  Label(screen1, text = "Berhasil terdaftar!", fg = "green" ,font = ("Helvetica", 11)).pack()
+  if Username.get() == "" and Passwords.get() == "" and Nama_lengkap.get() == "" and Nomor_HP.get() == "" and Alamat.get() == "" and Role.get() == "":
+      all_woy()
+  elif Passwords.get() == "":
+      password_isi_woy()
+  elif Nama_lengkap.get() == "":
+      naleng_isi_woy()
+  elif Nomor_HP.get() == "":
+      phone_isi_woy()
+  elif Alamat.get() == "":
+      alamat_isi_woy()
+  elif Role.get() == "":
+      role_isi_woy()
+  elif Username.get() == "":
+      username_isi_woy()
+  else:
+    conn.commit()
+    Label(screen1, text = "Berhasil terdaftar!", fg = "green" ,font = ("Helvetica", 11)).pack()
 
 def login_verify():
   # Connect to Mariadb
@@ -155,12 +169,34 @@ def login_verify():
       berhasil_login()
   conn.commit()
 
-#the ifs
+#the ifs buat register
+def username_isi_woy():
+  Label(screen1, text = "Username harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def password_isi_woy():
+  Label(screen1, text = "Password harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def naleng_isi_woy():
+  Label(screen1, text = "Nama lengkap harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def phone_isi_woy():
+  Label(screen1, text = "Nomor HP harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def alamat_isi_woy():
+  Label(screen1, text = "Alamat harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def role_isi_woy():
+  Label(screen1, text = "Role harus diisi!", fg = "red", font = ("Helvetica", 13)).pack()
+
+def all_woy():
+  Label(screen1, text = "Datanya harus diisi semua!", fg = "red", font = ("Helvetica", 13)).pack()
+
+#the ifs buat login
 def berhasil_login():
   Label(screen, text = "Berhasil login!", fg = "green" ,font = ("Helvetica", 13)).pack()
 
 def pengguna_salah():
-  Label(screen, text = "Username atau Passwords salah! Coba lagi", fg = "green" ,font = ("Helvetica", 13)).pack()
+  Label(screen, text = "Username atau Password salah! Coba lagi", fg = "red" ,font = ("Helvetica", 13)).pack()
         
 #gas GUI        
 home()
