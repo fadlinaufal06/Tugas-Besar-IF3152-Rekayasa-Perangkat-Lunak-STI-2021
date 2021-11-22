@@ -44,6 +44,31 @@ INSERT INTO `data_user` VALUES ('arga34','arga','Arga Aminuddin',21921782,'Tange
 UNLOCK TABLES;
 
 --
+-- Table structure for table `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu` (
+  `IDMenu` int(11) NOT NULL,
+  `Nama_Menu` varchar(50) NOT NULL,
+  `Deskripsi` varchar(100) NOT NULL,
+  PRIMARY KEY (`IDMenu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu`
+--
+
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` VALUES (1,'Nasi goreng','Isi sosis, ayam, bakso');
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `peralatan`
 --
 
@@ -67,7 +92,7 @@ CREATE TABLE `peralatan` (
 
 LOCK TABLES `peralatan` WRITE;
 /*!40000 ALTER TABLE `peralatan` DISABLE KEYS */;
-INSERT INTO `peralatan` VALUES (1,'Piring','AlatMakan',200,170,'Butuh Beli Baru'),(2,'Sendok','AlatMakan',200,130,'Butuh Beli Baru'),(3,'Garpu','AlatMakan',100,70,'Butuh Beli Baru'),(4,'Sumpit','AlatMakan',100,90,'Aman'),(5,'MangkokM','AlatMakan',150,145,'Aman'),(6,'Burner','AlatMeja',15,15,'Aman'),(7,'Tong','AlatMakan',30,30,'Aman'),(8,'Gunting','AlatMakan',15,15,'Aman'),(9,'Gelas','AlatMakan',80,75,'Aman'),(10,'Pitcher','AlatWaiter',10,9,'Aman'),(11,'Sapu','AlatKebersihan',10,10,'Aman'),(12,'Pel','AlatKebersihan',10,10,'Aman'),(13,'Kain Lap','AlatKebersihan',20,14,'Butuh Beli Baru'),(14,'Kotak Tissue','AlatMeja',45,20,'Butuh Beli Baru'),(15,'Condament','AlatMeja',30,29,'Aman'),(16,'Tong Sampah','AlatMeja',6,6,'Aman'),(17,'Tray','AlatWaiter',8,8,'Aman');
+INSERT INTO `peralatan` VALUES (1,'Piring','AlatMakan',200,170,'Butuh Beli Baru'),(2,'sdasd','dasdasd',12,11,'sadsad'),(3,'Garpu','AlatMakan',100,70,'Butuh Beli Baru'),(4,'Sumpit','AlatMakan',100,90,'Aman'),(5,'MangkokM','AlatMakan',150,145,'Aman'),(6,'Burner','AlatMeja',15,15,'Aman'),(7,'Tong','AlatMakan',30,30,'Aman'),(8,'Gunting','AlatMakan',15,15,'Aman'),(9,'Gelas','AlatMakan',80,75,'Aman'),(10,'Pitcher','AlatWaiter',10,9,'Aman'),(11,'Sapu','AlatKebersihan',10,10,'Aman'),(12,'Pel','AlatKebersihan',10,10,'Aman'),(13,'Kain Lap','AlatKebersihan',20,14,'Butuh Beli Baru'),(14,'Kotak Tissue','AlatMeja',45,20,'Butuh Beli Baru'),(15,'Condament','AlatMeja',30,29,'Aman'),(16,'Tong Sampah','AlatMeja',6,6,'Aman'),(17,'Tray','AlatWaiter',8,8,'Aman');
 /*!40000 ALTER TABLE `peralatan` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-21 10:22:38
+-- Dump completed on 2021-11-22  9:52:48
