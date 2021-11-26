@@ -45,7 +45,7 @@ def Todolist():
         root.destroy()
 
     # Tombol Edit Todolist
-    EditBut = Image.open('img\EditPeralatan.png')
+    EditBut = Image.open('img\EditTodolist.png')
     EditBut.load()
     EditBut = EditBut.resize((220,70),Image.ANTIALIAS)
     EditButPI = ImageTk.PhotoImage(EditBut)
