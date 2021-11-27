@@ -24,7 +24,7 @@ def KondisiPeralatan():
     Background_biru = Label(root, image=BiruPI, bg='deepskyblue').place(x=0,y=0,width=1500,height=150)
 
     # Tampilan atas MONITROS)
-    FotoMonitros = Image.open("img\logo monitros.png")
+    FotoMonitros = Image.open("img\logo_monitros.png")
     FotoMonitros.load()
     FotoMonitros = FotoMonitros.resize((500,300), Image.ANTIALIAS)
     FotoMonitrosPI = ImageTk.PhotoImage(FotoMonitros)
