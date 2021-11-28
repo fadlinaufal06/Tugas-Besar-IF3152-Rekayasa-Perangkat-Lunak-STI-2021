@@ -1,7 +1,6 @@
 # Penanggung jawab: Kevin Kencana 18219050
 import sys
-if "tkinter" not in sys.modules:
-    from tkinter import *
+from tkinter import *
 from PIL import Image, ImageTk
 import os
 from tkinter import ttk
@@ -9,12 +8,17 @@ import mysql.connector as mysql
 import mariadb
 
 # Modul Tampilkan Kondisi Peralatan
-def KondisiPeralatan():
+def KondisiPeralatan(screen):
     global root
+    screen.destroy()
     root = Tk()
     root.title("Tampilkan Peralatan")
     root.geometry('1270x690+0+0')
     root.config(bg='white')
+
+    def balikhome():
+        from homescreen import homescreen
+        homescreen(root)
     
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -38,12 +42,11 @@ def KondisiPeralatan():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root, image=HomiePI,bg='lightgreen', command=balikhome).place(x=1090,y=20,width=100,height=100)
 
     # Fungsi untuk buka window Edit Peralatan
     def BukaEditPeralatan():
-        EditPeralatan()
-        root.destroy()
+        EditPeralatan(root)
 
     # Tombol Edit peralatan
     EditBut = Image.open('img\EditPeralatan.png')
@@ -103,12 +106,17 @@ def KondisiPeralatan():
     root.mainloop()
 
 # Modul Edit Peralatan
-def EditPeralatan():
+def EditPeralatan(screen):
     global root2
-    root2 = Toplevel(root)
+    screen.destroy()
+    root2 = Tk()
     root2.title("Edit Peralatan")
     root2.geometry('1270x690+0+0')
     root2.config(bg='white')
+
+    def balikhome2():
+        from homescreen import homescreen
+        homescreen(root2)
 
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -131,7 +139,7 @@ def EditPeralatan():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen', command=balikhome2).place(x=1090,y=20,width=100,height=100)
 
     # Entry Box ID
     IDText = Label(root2, text='ID Peralatan', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=260)
@@ -179,7 +187,8 @@ def EditPeralatan():
         data = (InputID.get(),InputNama.get(),InputTipe.get(),InputIdeal.get(),InputJlh.get(),InputKondisi.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        KondisiPeralatan(root2)
+        
     def FunctionUpdate():
         # Connect to Mariadb
         conn = mariadb.connect(
@@ -195,7 +204,7 @@ def EditPeralatan():
         data = (InputNama.get(),InputTipe.get(),InputIdeal.get(),InputJlh.get(),InputKondisi.get(),InputID.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        KondisiPeralatan(root2)
 
     def FunctionDelete():
         # Connect to Mariadb
@@ -212,7 +221,7 @@ def EditPeralatan():
         data = (InputID.get(),InputNama.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        KondisiPeralatan(root2)
 
     # Button Tambah
     Tambah = Button(root2, text='TAMBAH',font=('helvetica',30,'bold'),bg='springgreen',bd=5,fg='Black',command=FunctionTambah).place(x=1000,y=300,width=200,height=50)
@@ -222,4 +231,4 @@ def EditPeralatan():
     root2.mainloop()
 
 # Jalanin GUI
-KondisiPeralatan()
+#KondisiPeralatan()

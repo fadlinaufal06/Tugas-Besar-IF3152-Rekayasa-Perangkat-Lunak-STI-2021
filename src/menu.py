@@ -1,20 +1,24 @@
 # Penanggung jawab : Fadli Naufal Rahman 18219043
 
 import sys
-if "tkinter" not in sys.modules:
-    from tkinter import *
+from tkinter import *
 from PIL import Image, ImageTk
 import os
 from tkinter import ttk
 import mysql.connector as mysql
 import mariadb
 
-def DaftarMenu():
+def DaftarMenu(screen):
     global root
+    screen.destroy()
     root = Tk()
     root.title("Tampilkan Daftar Menu")
     root.geometry('1270x690+0+0')
     root.config(bg='white')
+
+    def balikhome():
+        from homescreen import homescreen
+        homescreen(root)
 
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -38,12 +42,11 @@ def DaftarMenu():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root, image=HomiePI,bg='lightgreen', command=balikhome).place(x=1090,y=20,width=100,height=100)
     
     # Fungsi untuk buka window Edit Peralatan
     def BukaEditMenu():
-        EditMenu()
-        root.destroy()
+        EditMenu(root)
 
     # Tombol Edit Menu
     EditBut = Image.open('img\EditMenu.png')
@@ -100,12 +103,17 @@ def DaftarMenu():
     root.mainloop()
 
 # Modul Edit Peralatan
-def EditMenu():
+def EditMenu(screen):
     global root2
-    root2 = Toplevel(root)
+    screen.destroy()
+    root2 = Tk()
     root2.title("Edit Menu")
     root2.geometry('1270x690+0+0')
     root2.config(bg='white')
+
+    def balikhome2():
+        from homescreen import homescreen
+        homescreen(root2)
 
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -128,7 +136,7 @@ def EditMenu():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen', command=balikhome2).place(x=1090,y=20,width=100,height=100)
 
     # Entry Box ID
     IDText = Label(root2, text='ID Menu', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=260)
@@ -162,6 +170,8 @@ def EditMenu():
         cur.execute(Query, data)
         conn.commit()
         root2.destroy()
+        DaftarMenu(root2)
+
     def FunctionUpdate():
         # Connect to Mariadb
         conn = mariadb.connect(
@@ -178,6 +188,7 @@ def EditMenu():
         cur.execute(Query, data)
         conn.commit()
         root2.destroy()
+        DaftarMenu(root2)
 
     def FunctionDelete():
         # Connect to Mariadb
@@ -194,7 +205,7 @@ def EditMenu():
         data = (InputID.get(),InputNama.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        DaftarMenu(root2)
 
     # Button Tambah
     Tambah = Button(root2, text='TAMBAH',font=('helvetica',30, 'bold'),bg='springgreen',bd=5,fg='Black',command=FunctionTambah).place(x=550,y=300,width=200,height=50)
@@ -206,4 +217,4 @@ def EditMenu():
 
 
 #Menjalankan GUI
-DaftarMenu()
+#DaftarMenu()

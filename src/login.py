@@ -1,21 +1,25 @@
 # Penanggung jawab: Rahmat Fabhian Aminuddin 18219055
 import sys
-if "tkinter" not in sys.modules:
-    from tkinter import *
+from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import ttk, messagebox
 import os
 import mysql.connector as mysql
 import mariadb
+from homescreen import homescreen
 
-def home():
+def home(layar):
   global screen
+  layar.destroy()
   screen = Tk()
   screen.title("MONITROS")
   screen.geometry("1270x690")
   screen.config(bg = "white")
   screen.bg_img = ImageTk.PhotoImage(file="img/login.jpg")
   background = Label(screen, image = screen.bg_img).place(x = 0, y = 0, relwidth = 1, relheight = 1)
+
+  def registrasi():
+    register(screen)
 
   global Username_verify
   global Passwords_verify
@@ -41,18 +45,22 @@ def home():
 
   #register
   Label(screen, text = "Belum punya akun? ", font = ("Helvetica", 15, "bold"), bg="white").place(x = 500, y = 570)
-  Button(text = "DAFTAR DISINI!", font=("Helvetica", 15, "bold"), bg = "red", fg = "white", command = register).place(x = 700, y = 570, height = 30, width = 160)
+  Button(text = "DAFTAR DISINI!", font=("Helvetica", 15, "bold"), bg = "red", fg = "white", command =registrasi).place(x = 700, y = 570, height = 30, width = 160)
 
   screen.mainloop()
 
-def register():
+def register(screen):
   global screen1
-  screen1 = Toplevel(screen)
+  screen.destroy()
+  screen1 = Tk()
   screen1.title("MONITROS")
   screen1.geometry("1270x690")
   screen1.config(bg = "white")
   screen1.bg_img = ImageTk.PhotoImage(file="img/register.jpg")
   background = Label(screen1, image = screen1.bg_img).place(x = 0, y = 0, relwidth = 1, relheight = 1)
+
+  def registrasiuser():
+    register_user(screen1)
 
   global Username
   global Passwords
@@ -106,10 +114,10 @@ def register():
   Role_register.place(x = 450, y = 330, width = 300, height = 30)
 
   #button register
-  Button(screen1, text = "DAFTAR", font=("Helvetica", 15, "bold"), bg = "cyan", fg = "black", command = register_user).place(x = 900, y = 315, height = 50, width = 160)
+  Button(screen1, text = "DAFTAR", font=("Helvetica", 15, "bold"), bg = "cyan", fg = "black", command = registrasiuser).place(x = 900, y = 315, height = 50, width = 160)
 
 #fungsi actionzzzz
-def register_user():
+def register_user(screen):
   # Connect to Mariadb
   try:
     conn = mariadb.connect(
@@ -145,6 +153,7 @@ def register_user():
   else:
     conn.commit()
     Label(screen1, text = "Berhasil terdaftar!", fg = "green" ,font = ("Helvetica", 11)).pack()
+    home(screen)
 
 def login_verify():
   # Connect to Mariadb
@@ -195,9 +204,7 @@ def all_woy():
 #the ifs buat login
 def berhasil_login():
   Label(screen, text = "Berhasil login!", fg = "green" ,font = ("Helvetica", 13)).pack()
+  homescreen(screen)
 
 def pengguna_salah():
   Label(screen, text = "Username atau Password salah! Coba lagi", fg = "red" ,font = ("Helvetica", 13)).pack()
-        
-#gas GUI        
-home()

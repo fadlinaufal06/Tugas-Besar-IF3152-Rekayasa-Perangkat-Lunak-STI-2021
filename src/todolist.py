@@ -1,6 +1,6 @@
 # Penanggung jawab: Aindrea Rayhan 18219034
 import sys
-from tkinter import*
+from tkinter import *
 from PIL import Image, ImageTk
 import os
 from tkinter import ttk
@@ -8,12 +8,17 @@ import mysql.connector as mysql
 import mariadb
 
 # Modul Tampilkan Kondisi todolist
-def Todolist():
+def Todolist(screen):
     global root
+    screen.destroy()
     root = Tk()
     root.title("Tampilkan To-do List")
     root.geometry('1270x690+0+0')
     root.config(bg='white')
+
+    def balikhome():
+        from homescreen import homescreen
+        homescreen(root)
     
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -37,12 +42,11 @@ def Todolist():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root, image=HomiePI,bg='lightgreen', command=balikhome).place(x=1090,y=20,width=100,height=100)
 
     # Fungsi untuk buka window Edit Todolist
     def BukaEditTodolist():
-        EditTodolist()
-        root.destroy()
+        EditTodolist(root)
 
     # Tombol Edit Todolist
     EditBut = Image.open('img\EditTodolist.png')
@@ -114,12 +118,17 @@ def Todolist():
     root.mainloop()
 
 # Modul Edit Todolist
-def EditTodolist():
+def EditTodolist(screen):
     global root2
-    root2 = Toplevel(root)
+    screen.destroy()
+    root2 = Tk()
     root2.title("Edit To-do List")
     root2.geometry('1270x690+0+0')
     root2.config(bg='white')
+
+    def balikhome2():
+        from homescreen import homescreen
+        homescreen(root2)
 
     # Tampilan biru di atas
     Biru = Image.open("img\lightblue.png")
@@ -142,7 +151,7 @@ def EditTodolist():
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
     HomiePI = ImageTk.PhotoImage(Homie)
-    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen').place(x=1090,y=20,width=100,height=100)
+    HomiePicture = Button(root2, image=HomiePI,bg='lightgreen', command=balikhome2).place(x=1090,y=20,width=100,height=100)
 
     # Entry Box ID
     IDText = Label(root2, text='ID Pekerjaan', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=260)
@@ -190,7 +199,7 @@ def EditTodolist():
         data = (InputIDPekerjaan.get(),InputUsername.get(),InputRole.get(),InputNamaPekerjaan.get(),InputDesc.get(),InputStatus.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        Todolist(root2)
 
     def FunctionUpdate():
         # Connect to Mariadb
@@ -207,7 +216,7 @@ def EditTodolist():
         data = (InputUsername.get(),InputRole.get(),InputNamaPekerjaan.get(),InputDesc.get(),InputStatus.get(),InputIDPekerjaan.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        Todolist(root2)
 
     def FunctionDelete():
         # Connect to Mariadb
@@ -224,7 +233,7 @@ def EditTodolist():
         data = (InputIDPekerjaan.get(),InputNamaPekerjaan.get())
         cur.execute(Query, data)
         conn.commit()
-        root2.destroy()
+        Todolist(root2)
 
     # Button Tambah
     Tambah = Button(root2, text='TAMBAH',font=('helvetica',30,'bold'),bg='springgreen',bd=5,fg='Black',command=FunctionAdd).place(x=1000,y=300,width=200,height=50)
@@ -235,4 +244,4 @@ def EditTodolist():
     root2.mainloop()
 
 # Run GUI
-Todolist()
+#Todolist()
