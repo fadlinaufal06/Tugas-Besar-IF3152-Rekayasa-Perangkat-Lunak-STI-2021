@@ -17,6 +17,31 @@ Penanggung Jawab: Rahmat Fabhian Aminuddin
 NIM: 18219055
 
 <img src="./doc/login.png" alt="login.png" width="800"/>
+<img src="./doc/register.png" alt="register.png" width="800"/>
 
-Daftar modul yang diimplementasi dilengkapi dengan nama modul, NIM dan nama penanggung jawab, dan capture screen tampilan layar (jika ada) per modul 
+## DAFTAR/EDIT PERALATAN
+Penanggung Jawab: Kevin Kencana
+
+NIM: 18219050
+
+<img src="./doc/daftarperalatan.png" alt="login.png" width="800"/>
+<img src="./doc/edit_peralatan.png" alt="register.png" width="800"/>
+
+## DAFTAR/EDIT MENU
+Penanggung Jawab: Fadli Naufal Rahman
+
+NIM: 18219043
+
+<img src="./doc/daftarmenu.png" alt="login.png" width="800"/>
+<img src="./doc/edit_menu.png" alt="register.png" width="800"/>
+
+## LOGIN/REGISTER
+Penanggung Jawab: Aindrea Rayhan Supriatno
+
+NIM: 18219034
+
+<img src="./doc/todolist.png" alt="login.png" width="800"/>
+<img src="./doc/edit_todolist.png" alt="register.png" width="800"/>
+
+# DAFTAR TABEL BASIS DATA
 Daftar tabel basis data yang diimplementasi dilengkapi dengan nama tabel dan atributnya
