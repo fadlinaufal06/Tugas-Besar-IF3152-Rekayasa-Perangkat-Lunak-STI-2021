@@ -1,15 +1,30 @@
-image: "python:3.7" #commands to run in the Docker container before starting each job.
-before_script:
-  - python --version
-  - pip install -r requirements.txt# different stages in the pipeline
+image: "python:3.7" 
+
 stages:
   - Static Analysis
-  - Test#defines the job in Static Analysis
+  - Test
+  - Build
+
 pylint:
   stage: Static Analysis
   script:
+  - pip install -r requirements.txt
   - pylint -d C0301 src/*.py
+
 pytest:
   stage: Test
   script:
-  - cd test/;pytest -v
+  - pip install -r requirements.txt
+  - cp src/*.py test/;cd test/;pytest -v
+
+build:
+  image: "tobix/pywine:3.7"
+  stage: Build
+  script:
+  - cd src/
+  - wine pyinstaller main.py
+  - cp -r input/ dist/main/input/
+  - cp logo.png dist/main/logo.png
+  artifacts:
+    paths:
+      - src/dist/main/*
