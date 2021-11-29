@@ -9,3 +9,7 @@ pylint:
   stage: Static Analysis
   script:
   - pylint -d C0301 src/*.py
+pytest:
+  stage: Test
+  script:
+  - cd test/;pytest -v
