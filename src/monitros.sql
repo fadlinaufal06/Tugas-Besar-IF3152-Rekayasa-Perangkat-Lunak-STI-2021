@@ -2,7 +2,11 @@
 --
 -- Host: localhost    Database: monitros
 -- ------------------------------------------------------
+<<<<<<< HEAD
 -- Server version	10.6.5-MariaDB
+=======
+-- Server version	10.4.21-MariaDB
+>>>>>>> 00f631db09c8e0d3e9ae5b6604feaddc1aa574b7
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -93,7 +97,7 @@ CREATE TABLE `peralatan` (
 
 LOCK TABLES `peralatan` WRITE;
 /*!40000 ALTER TABLE `peralatan` DISABLE KEYS */;
-INSERT INTO `peralatan` VALUES (1,'Piring','AlatMakan',200,170,'Butuh Beli Baru'),(2,'sdasd','dasdasd',12,11,'sadsad'),(3,'Garpu','AlatMakan',100,70,'Butuh Beli Baru'),(4,'Sumpit','AlatMakan',100,90,'Aman'),(5,'MangkokM','AlatMakan',150,145,'Aman'),(6,'Burner','AlatMeja',15,15,'Aman'),(7,'Tong','AlatMakan',30,30,'Aman'),(8,'Gunting','AlatMakan',15,15,'Aman'),(9,'Gelas','AlatMakan',80,75,'Aman'),(10,'Pitcher','AlatWaiter',10,9,'Aman'),(11,'Sapu','AlatKebersihan',10,10,'Aman'),(12,'Pel','AlatKebersihan',10,10,'Aman'),(13,'Kain Lap','AlatKebersihan',20,14,'Butuh Beli Baru'),(14,'Kotak Tissue','AlatMeja',45,20,'Butuh Beli Baru'),(15,'Condament','AlatMeja',30,29,'Aman'),(16,'Tong Sampah','AlatMeja',6,6,'Aman'),(17,'Tray','AlatWaiter',8,8,'Aman');
+INSERT INTO `peralatan` VALUES (1,'Piring','AlatMakan',200,170,'Butuh Beli Baru'),(2,'Sendok','AlatMakan',200,130,'Butuh Beli Baru'),(3,'Garpu','AlatMakan',100,70,'Butuh Beli Baru'),(4,'Sumpit','AlatMakan',100,90,'Aman'),(5,'MangkokM','AlatMakan',150,145,'Aman'),(6,'Burner','AlatMeja',15,15,'Aman'),(7,'Tong','AlatMakan',30,30,'Aman'),(8,'Gunting','AlatMakan',15,15,'Aman'),(9,'Gelas','AlatMakan',80,75,'Aman'),(10,'Pitcher','AlatWaiter',10,9,'Aman'),(11,'Sapu','AlatKebersihan',10,10,'Aman'),(12,'Pel','AlatKebersihan',10,10,'Aman'),(13,'Kain Lap','AlatKebersihan',20,14,'Butuh Beli Baru'),(14,'Kotak Tissue','AlatMeja',45,20,'Butuh Beli Baru'),(15,'Condament','AlatMeja',30,29,'Aman'),(16,'Tong Sampah','AlatMeja',6,6,'Aman'),(17,'Tray','AlatWaiter',8,8,'Aman');
 /*!40000 ALTER TABLE `peralatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
