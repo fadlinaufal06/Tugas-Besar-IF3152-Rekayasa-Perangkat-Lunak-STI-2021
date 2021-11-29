@@ -1,4 +1,4 @@
-# Penanggung jawab: Kevin Kencana 18219050
+# Penanggung jawab: Aindrea Rayhan 18219034
 import sys
 from tkinter import *
 from PIL import Image, ImageTk
@@ -7,12 +7,12 @@ from tkinter import ttk
 import mysql.connector as mysql
 import mariadb
 
-# Modul Tampilkan Kondisi Peralatan
-def KondisiPeralatan(screen):
+# Modul Tampilkan Kondisi todolist
+def Todolist(screen):
     global root
     screen.destroy()
     root = Tk()
-    root.title("Tampilkan Peralatan")
+    root.title("Tampilkan To-do List")
     root.geometry('1270x690+0+0')
     root.config(bg='white')
 
@@ -34,8 +34,8 @@ def KondisiPeralatan(screen):
     FotoMonitrosPI = ImageTk.PhotoImage(FotoMonitros)
     logoMonitros = Label(root, image=FotoMonitrosPI,bg='deepskyblue').place(x=0,y=0,width=450,height=150)
 
-    # Tulisan "DAFTAR PERALATAN"
-    DaftarlabelTitle = Label(root, text='DAFTAR PERALATAN', font=('helvetica',40),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
+    # Tulisan "DAFTAR TODOLIST"
+    DaftarlabelTitle = Label(root, text='TO-DO LIST', font=('helvetica',40,'bold'),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
 
     # Tampilan button Homie  
     Homie = Image.open('img\home.png')
@@ -44,39 +44,51 @@ def KondisiPeralatan(screen):
     HomiePI = ImageTk.PhotoImage(Homie)
     HomiePicture = Button(root, image=HomiePI,bg='lightgreen', command=balikhome).place(x=1090,y=20,width=100,height=100)
 
-    # Fungsi untuk buka window Edit Peralatan
-    def BukaEditPeralatan():
-        EditPeralatan(root)
+    # Fungsi untuk buka window Edit Todolist
+    def BukaEditTodolist():
+        EditTodolist(root)
 
-    # Tombol Edit peralatan
-    EditBut = Image.open('img\EditPeralatan.png')
+    # Tombol Edit Todolist
+    EditBut = Image.open('img\EditTodolist.png')
     EditBut.load()
     EditBut = EditBut.resize((220,70),Image.ANTIALIAS)
     EditButPI = ImageTk.PhotoImage(EditBut)
-    EditButton = Button(root, image=EditButPI,command=BukaEditPeralatan).place(x=970,y=170,width=220,height=65)
+    EditButton = Button(root, image=EditButPI,command=BukaEditTodolist).place(x=960,y=170,width=220,height=65)
     
+    # Frame untuk tabel
+
+    table_frame = Frame(root)
+    table_frame.place(x=150, y=250, width=1000, height=430)
+
     # Scrollbar di kanan
-    scrollbar = Scrollbar(root)
+    scrollbar = ttk.Scrollbar(table_frame, orient=VERTICAL)
     scrollbar.pack( side = RIGHT, fill = Y )
 
-    # setup treeview untuk tabel isi daftar peralatan
+    # setup treeview untuk tabel isi daftar todolist
     columns = (1,2,3,4,5,6)
-    tree = ttk.Treeview(root, height=10, columns=columns, show='headings')
+    tree = ttk.Treeview(table_frame, columns=columns, show='headings', yscrollcommand=scrollbar.set)
     tree.column(1,width=30)
-    tree.pack(side=BOTTOM, fill=Y,pady=20)
+    tree.pack(fill=BOTH,expand=1)
     tree.heading(1, text='ID')
-    tree.heading(2, text='Nama Peralatan')
-    tree.heading(3, text='Tipe Peralatan')
-    tree.heading(4, text='Jumlah Ideal')
-    tree.heading(5, text='Jumlah Peralatan')
-    tree.heading(6, text='Kondisi')
+    tree.heading(2, text='Username')
+    tree.heading(3, text='Role')
+    tree.heading(4, text='Nama Pekerjaan')
+    tree.heading(5, text='Deskripsi')
+    tree.heading(6, text='Status')
+
+    tree.column(1, width=30)
+    tree.column(2, width=50)
+    tree.column(3 ,width=50)
+    tree.column(4, width=100)
+    tree.column(5, width=200)
+    tree.column(6, width=50)
 
     # Style Treeview
     style = ttk.Style()
     style.configure("Treeview", font=('helvetica', 11), background="lightgrey",foreground="black",fieldbackground='dodgerblue3',rowheight=40)
     style.map("Treeview",background=[('selected','azure4')])
 
-    # Connect ke Mariadb server untuk mengambil data peralatan
+    # Connect ke Mariadb server untuk mengambil data pekerjaan
     try:
         conn = mariadb.connect(
             user="root",
@@ -91,26 +103,26 @@ def KondisiPeralatan(screen):
 
     # Get Cursor
     cur = conn.cursor()
-    cur.execute('SELECT IDPeralatan, Nama_Peralatan, Tipe_Peralatan, Jumlah_Ideal, Jumlah_Peralatan, Kondisi FROM peralatan')
+    cur.execute('SELECT IDPekerjaan, Username, Role, Nama_Pekerjaan, Deskripsi, Status FROM todolist')
     
     # Isi Treeview dengan data dari database
     i=1
-    for (IDPeralatan, Nama_Peralatan, Tipe_Peralatan, Jumlah_Ideal, Jumlah_Peralatan, Kondisi) in cur:
-        tree.insert(parent='',index=i,text='',values=(IDPeralatan,Nama_Peralatan,Tipe_Peralatan,Jumlah_Ideal,Jumlah_Peralatan,Kondisi))
+    for (IDPekerjaan, Username, Role, Nama_Pekerjaan, Deskripsi, Status) in cur:
+        tree.insert(parent='',index=i,text='',values=(IDPekerjaan, Username, Role, Nama_Pekerjaan, Deskripsi, Status))
         i=i+1
     
     # Pasang supaya scrollbar terhubung ke treeview
-    scrollbar.config( command = tree.yview )
+    scrollbar.config(command=tree.yview)
 
     # Paling akhir untuk infinite loop
     root.mainloop()
 
-# Modul Edit Peralatan
-def EditPeralatan(screen):
+# Modul Edit Todolist
+def EditTodolist(screen):
     global root2
     screen.destroy()
     root2 = Tk()
-    root2.title("Edit Peralatan")
+    root2.title("Edit To-do List")
     root2.geometry('1270x690+0+0')
     root2.config(bg='white')
 
@@ -131,10 +143,10 @@ def EditPeralatan(screen):
     FotoMonitrosPI = ImageTk.PhotoImage(FotoMonitros)
     logoMonitros = Label(root2, image=FotoMonitrosPI,bg='deepskyblue').place(x=0,y=0,width=450,height=150)  
 
-    # Tulisan "EDIT PERALATAN"
-    DaftarlabelTitle = Label(root2, text='EDIT PERALATAN', font=('helvetica',40),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
+    # Tulisan "EDIT TODOLIST"
+    DaftarlabelTitle = Label(root2, text='EDIT TO-DO LIST', font=('helvetica',40),bg='white',fg='Black', width=100, anchor='w').place(x=50,y=180)
 
-    # Tampilan button Homie  
+   # Tampilan button Homie  
     Homie = Image.open('img\home.png')
     Homie.load()
     Homie = Homie.resize((100,100), Image.ANTIALIAS)
@@ -142,37 +154,37 @@ def EditPeralatan(screen):
     HomiePicture = Button(root2, image=HomiePI,bg='lightgreen', command=balikhome2).place(x=1090,y=20,width=100,height=100)
 
     # Entry Box ID
-    IDText = Label(root2, text='ID Peralatan', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=260)
-    InputID = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputID.place(width=300,height=40,x=140,y=310)
+    IDText = Label(root2, text='ID Pekerjaan', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=260)
+    InputIDPekerjaan = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputIDPekerjaan.place(width=300,height=40,x=140,y=310)
 
-    # Entry Box Nama
-    NamaText = Label(root2, text='Nama Peralatan', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=380)
-    InputNama = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputNama.place(width=300,height=40,x=140,y=430)
+    # Entry Box Username
+    UsernameText = Label(root2, text='Username', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=380)
+    InputUsername = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputUsername.place(width=300,height=40,x=140,y=430)
 
-    # Entry Box Tipe
-    TipeText = Label(root2, text='Tipe Peralatan', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=500)
-    InputTipe = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputTipe.place(width=300,height=40,x=140,y=550)
+    # Entry Box Role
+    RoleText = Label(root2, text='Role', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=140,y=500)
+    InputRole = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputRole.place(width=300,height=40,x=140,y=550)
 
-    # Entry Box Jumlah Ideal
-    IdealText = Label(root2, text='Jumlah Ideal', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=260)
-    InputIdeal = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputIdeal.place(width=300,height=40,x=550,y=310)
+    # Entry Box Nama Pekerjaan
+    NamaPekerjaanText = Label(root2, text='Nama Pekerjaan', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=260)
+    InputNamaPekerjaan = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputNamaPekerjaan.place(width=300,height=40,x=550,y=310)
 
-    # Entry Box Jumlah Peralatan
-    JlhText = Label(root2, text='Jumlah Peralatan', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=380)
-    InputJlh = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputJlh.place(width=300,height=40,x=550,y=430)
+    # Entry Box Deskripsi
+    DescText = Label(root2, text='Deskripsi', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=380)
+    InputDesc = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputDesc.place(width=300,height=40,x=550,y=430)
 
-    # Entry Box Kondisi
-    KondisiText = Label(root2, text='Kondisi', font=('helvetica',25),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=500)
-    InputKondisi = Entry(root2,bd=5, font=('helvetica',15),bg='deepskyblue')
-    InputKondisi.place(width=300,height=40,x=550,y=550)
+    # Entry Box Status
+    StatusText = Label(root2, text='Status', font=('helvetica',30),bg='white',fg='Black', width=100, anchor='w').place(x=550,y=500)
+    InputStatus = Entry(root2,bd=5,font=('helvetica',15),bg='deepskyblue')
+    InputStatus.place(width=300,height=40,x=550,y=550)
     
     # Function untuk tombol
-    def FunctionTambah():
+    def FunctionAdd():
         # Connect to Mariadb
         conn = mariadb.connect(
             user="root",
@@ -183,12 +195,12 @@ def EditPeralatan(screen):
         )
         # Get Cursor
         cur = conn.cursor()
-        Query = "INSERT INTO peralatan VALUES (%d,%s,%s,%d,%d,%s)"
-        data = (InputID.get(),InputNama.get(),InputTipe.get(),InputIdeal.get(),InputJlh.get(),InputKondisi.get())
+        Query = "INSERT INTO todolist VALUES (%d,%s,%s,%s,%s,%s)"
+        data = (InputIDPekerjaan.get(),InputUsername.get(),InputRole.get(),InputNamaPekerjaan.get(),InputDesc.get(),InputStatus.get())
         cur.execute(Query, data)
         conn.commit()
-        KondisiPeralatan(root2)
-        
+        Todolist(root2)
+
     def FunctionUpdate():
         # Connect to Mariadb
         conn = mariadb.connect(
@@ -200,11 +212,11 @@ def EditPeralatan(screen):
         )
         # Get Cursor
         cur = conn.cursor()
-        Query = "UPDATE peralatan SET Nama_Peralatan=%s, Tipe_Peralatan=%s,Jumlah_Ideal=%d,Jumlah_Peralatan=%d,Kondisi=%s WHERE IDPeralatan=%d"
-        data = (InputNama.get(),InputTipe.get(),InputIdeal.get(),InputJlh.get(),InputKondisi.get(),InputID.get())
+        Query = "UPDATE todolist SET Username=%s, Role=%s, Nama_Pekerjaan=%s, Deskripsi=%s, Status=%s WHERE IDPekerjaan=%d"
+        data = (InputUsername.get(),InputRole.get(),InputNamaPekerjaan.get(),InputDesc.get(),InputStatus.get(),InputIDPekerjaan.get())
         cur.execute(Query, data)
         conn.commit()
-        KondisiPeralatan(root2)
+        Todolist(root2)
 
     def FunctionDelete():
         # Connect to Mariadb
@@ -217,18 +229,19 @@ def EditPeralatan(screen):
         )
         # Get Cursor
         cur = conn.cursor()
-        Query = "DELETE FROM peralatan WHERE IDPeralatan=%d AND Nama_Peralatan=%s"
-        data = (InputID.get(),InputNama.get())
+        Query = "DELETE FROM todolist WHERE IDPekerjaan=%d AND Nama_Pekerjaan=%s"
+        data = (InputIDPekerjaan.get(),InputNamaPekerjaan.get())
         cur.execute(Query, data)
         conn.commit()
-        KondisiPeralatan(root2)
+        Todolist(root2)
 
     # Button Tambah
-    Tambah = Button(root2, text='TAMBAH',font=('helvetica',30,'bold'),bg='springgreen',bd=5,fg='Black',command=FunctionTambah).place(x=1000,y=300,width=200,height=50)
+    Tambah = Button(root2, text='TAMBAH',font=('helvetica',30,'bold'),bg='springgreen',bd=5,fg='Black',command=FunctionAdd).place(x=1000,y=300,width=200,height=50)
     Update = Button(root2, text='UPDATE',font=('helvetica',30,'bold'),bg='lightblue',bd=5,fg='Black',command=FunctionUpdate).place(x=1000,y=420,width=200,height=50)
     Hapus = Button(root2, text='HAPUS',font=('helvetica',30,'bold'),bg='red',bd=5,fg='Black',command=FunctionDelete).place(x=1000,y=540,width=200,height=50)
-    # Paling Akhir
+
+    # infinite looping
     root2.mainloop()
 
-# Jalanin GUI
-#KondisiPeralatan()
+# Run GUI
+#Todolist()

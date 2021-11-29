@@ -1,0 +1,30 @@
+image: "python:3.7" 
+
+stages:
+  - Static Analysis
+  - Test
+  - Build
+
+pylint:
+  stage: Static Analysis
+  script:
+  - pip install -r requirements.txt
+  - pylint -d C0301 src/*.py
+
+pytest:
+  stage: Test
+  script:
+  - pip install -r requirements.txt
+  - cp src/*.py test/;cd test/;pytest -v
+
+build:
+  image: "tobix/pywine:3.7"
+  stage: Build
+  script:
+  - cd src/
+  - wine pyinstaller main.py
+  - cp -r input/ dist/main/input/
+  - cp logo.png dist/main/logo.png
+  artifacts:
+    paths:
+      - src/dist/main/*
