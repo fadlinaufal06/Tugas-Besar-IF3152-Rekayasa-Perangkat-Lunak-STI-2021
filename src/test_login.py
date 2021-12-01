@@ -47,7 +47,7 @@ def registrasilogin(query,data):
 
 def test_connnection():
     regtest = Connect()
-    assert (regtest[0] == ('abhifabhian','abhi','abhi fabhian',213123,'Tangerang','Owner'))
+    assert (regtest[0] == ('arga34','arga','Arga Aminuddin',21921782,'Tangerang','Karyawan'))
 
 def test_registrasi():
     query = "INSERT INTO data_user VALUES (%s,%s,%s,%d,%s,%s)"
