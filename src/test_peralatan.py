@@ -52,7 +52,8 @@ def test_connnection():
 def test_edit_normal():
     peralatan = Connect()
     query = "INSERT INTO peralatan VALUES (%d,%s,%s,%d,%d,%s)"
-    data = (len(nama_peralatan[0]),'mangkok','alatmakan',12,11,'normal')
+    row = len(peralatan)+1
+    data = (row,'mangkok','alatmakan',12,11,'normal')
     message = tambah_peralatan(query, data)
     assert (message == 'berhasil')
 

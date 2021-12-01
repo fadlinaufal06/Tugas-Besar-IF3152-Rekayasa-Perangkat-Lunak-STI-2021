@@ -57,7 +57,8 @@ def test_connnection():
 def test_edit_normal():
     menu = Connect()
     query = "INSERT INTO menu VALUES (%d,%s,%s)"
-    data = (len(menu[0]),'Ayam Geprek','Nasi ambil sepuasnya') #Pakai len(menu[0]) agar pytest bisa dijalan berkali-kali
+    row = len(menu)+1
+    data = (row,'Ayam Geprek','Nasi ambil sepuasnya') #Pakai len(menu[0]) agar pytest bisa dijalan berkali-kali
     message = tambah_menu(query, data)
     assert (message == 'berhasil')
 
