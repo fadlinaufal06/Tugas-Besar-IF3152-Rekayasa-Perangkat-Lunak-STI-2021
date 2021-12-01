@@ -8,6 +8,8 @@ from tkinter import ttk
 import mysql.connector as mysql
 import mariadb
 import pytest
+import menu
+
 
 def Connect():
     try:
@@ -40,6 +42,10 @@ def tambah_menu(query,data):
     try:
         cur.execute(query, data)
         conn.commit()
+        #Query = "DELETE FROM menu WHERE IDMenu=%d AND Nama_Menu=%s"
+        #Data = (data[0],data[1])
+        #cur.execute(Query, Data)
+        #conn.commit()
         return 'berhasil'
     except:
         return 'tidak berhasil'
@@ -49,8 +55,9 @@ def test_connnection():
     assert (nama_menu1[0] == (1,'Nasi goreng','Isi sosis, ayam, bakso'))
 
 def test_edit_normal():
+    menu = Connect()
     query = "INSERT INTO menu VALUES (%d,%s,%s)"
-    data = (2,'Ayam Geprek','Nasi ambil sepuasnya')
+    data = (len(menu[0]),'Ayam Geprek','Nasi ambil sepuasnya') #Pakai len(menu[0]) agar pytest bisa dijalan berkali-kali
     message = tambah_menu(query, data)
     assert (message == 'berhasil')
 
