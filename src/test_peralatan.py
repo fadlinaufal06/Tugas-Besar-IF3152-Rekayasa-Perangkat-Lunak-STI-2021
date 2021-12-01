@@ -40,7 +40,7 @@ def tambah_peralatan(query,data):
     try:
         cur.execute(query, data)
         conn.commit()
-        #Query = " Query = "DELETE FROM peralatan WHERE IDPeralatan=%d AND Nama_Peralatan=%s"
+        #Query = "DELETE FROM peralatan WHERE IDPeralatan=%d AND Nama_Peralatan=%s"
         return 'berhasil'
     except:
         return 'tidak berhasil'
